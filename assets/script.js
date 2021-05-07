@@ -3,23 +3,51 @@ const APIKey = "f0b02cd8747443fca3ffe2268d51a251";
 
 $("#search-btn").on("click", function () {
   var city = $("#search-input").val();
-  //console.log(city);
+  console.log(city);
 
-  fetch(
-    `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=f0b02cd8747443fca3ffe2268d51a251`
-  )
-    .then(function (res) {
-      return res.json();
+
+
+  fetch("http://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=imperial&appid=f0b02cd8747443fca3ffe2268d51a251")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        renderer(data);
+      });
+  });
+
+  fetch("http://api.openweathermap.org/data/2.5/forecast?q=${cityname}&units=imperial&appid=f0b02cd8747443fca3ffe2268d51a251")
+    .then(function (response) {
+      return response.json();
     })
     .then(function (data) {
       console.log(data);
       renderer(data);
     });
-});
+
 
 function renderer(data) {
   $("h1").val(data.title);
 }
+
+
+
+// AJAX call requires a third party library, jQuery
+$.ajax({
+  url: requestUrl,
+  method: "GET",
+}).then(function (response) {
+  console.log("Ajax Reponse \n-------------");
+  console.log(response);
+});
+
+// temp - main.temp
+// humidity - main.humidity
+// wind - wind.speed
+// UV index -
+// weather icon - weather.icon
+
 // WHEN I search for a city
 // THEN I am presented with current and future conditions for that city and that city is added to the search history
 
